@@ -1,3 +1,3 @@
 class Ciudad < ApplicationRecord
-   has_many :historial
+   has_many :historials
 end

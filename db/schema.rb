@@ -21,10 +21,10 @@ ActiveRecord::Schema.define(version: 20170118160023) do
 
   create_table "historials", force: :cascade do |t|
     t.string   "temperatura"
-    t.integer  "ciudads_id"
+    t.integer  "ciudad_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.index ["ciudads_id"], name: "index_historials_on_ciudads_id"
+    t.index ["ciudad_id"], name: "index_historials_on_ciudad_id"
   end
 
 end
