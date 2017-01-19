@@ -1,6 +1,11 @@
 var WeatherContainer = React.createClass({
+   propTypes: {
+    temperatura: React.PropTypes.string,
+    icon: React.PropTypes.string,
+    desc: React.PropTypes.string
+   },
    getInitialState: function() {
-      return { ciudades: [] };
+      return { ciudades: [], temperatura: "", desc: "", icon_url: "" };
    },
    componentWillMount: function() {
       this.fetchCiudades();
@@ -17,10 +22,43 @@ var WeatherContainer = React.createClass({
          }.bind(this)
       });
    },
+   handleClick: function() {
+      this.state.ciudades.map( function(ciudad){  
+         $.ajax({
+            url: "http://api.openweathermap.org/data/2.5/weather?q="+ciudad.name+","+ciudad.country_code+"&units=metric&lang=es&APPID=79487f1d57769def60a20d9d16a967d9",
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+               this.setState({ temperatura: data.main.temp});
+               this.setState({ desc: data.weather[0].description});
+               this.setState({ icon_url: "http://openweathermap.org/img/w/"+ data.weather[0].icon+".png"});
+                  $.ajax({
+                     url: this.props.updatePath,
+                     type: 'POST',
+                     dataType: 'json',
+                     data: { historial: {temperatura: this.state.temperatura, desc: this.state.desc, icon: this.state.icon_url, ciudad_id: ciudad.id}, _method:'create' },
+                     success: function(data) {
+                        $("#mod-date").text("Última actualización: " + data.data.mod_date);
+                     }.bind(this),
+                     error: function(data) {
+                        console.log(data);
+                     }.bind(this)
+                  });
+
+            }.bind(this),
+            error: function(data) {
+               this.setState({ temperatura: "Error de obtención de información"});
+            }.bind(this)
+         });
+         this.fetchCiudades();
+      }.bind(this))  
+   },
    render: function() {
       return (
          <div>
             <Temperaturas ciudades={this.state.ciudades} update_Path={this.props.updatePath} />
+            <a href="#" onClick={ this.handleClick }>Actualizar información</a>
+            <div className="row"><p id="mod-date"></p></div>
          </div>
       );
    }
@@ -29,7 +67,6 @@ var WeatherContainer = React.createClass({
 var Temperaturas = React.createClass({
    getInitialState: function() {
     return {ciudades: [] };
-    console.log(this.props.update_Path)
    },
    render: function() {
       const up_path=this.props.update_Path;
@@ -66,10 +103,9 @@ var Ciudad = React.createClass({
                      url: this.props.updatePath,
                      type: 'POST',
                      dataType: 'json',
-                     data: { historial: {temperatura: this.state.temperatura, desc: this.state.desc, icon: this.state.icon, ciudad_id: this.props.city_id}, _method:'create' },
+                     data: { historial: {temperatura: this.state.temperatura, desc: this.state.desc, icon: this.state.icon_url, ciudad_id: this.props.city_id}, _method:'create' },
                      success: function(data) {
-                        console.log(data);
-                        $("#mod-date").text("Última actualización: " + data.mod_date);
+                        $("#mod-date").text("Última actualización: " + data.data.mod_date);
                      }.bind(this),
                      error: function(data) {
                         console.log(data);
@@ -83,7 +119,7 @@ var Ciudad = React.createClass({
          });
       }else{
          this.setState({ temperatura: this.props.temperatura});
-         this.setState({ icon_url: "http://openweathermap.org/img/w/"+ this.props.icon+".png"});
+         this.setState({ icon_url: this.props.icon });
          this.setState({ desc: this.props.desc});
          $("#mod-date").text("Última actualización: " + this.props.date);
       }

@@ -10,7 +10,6 @@ var Historial = React.createClass({
          url: this.props.registrosPath,
          dataType: 'json',
          success: function(data) {
-            console.log(data.ciudades);
             this.setState({registros: data.ciudades});
          }.bind(this),
          error: function(data) {
@@ -28,13 +27,12 @@ var Historial = React.createClass({
 });
 
 var TablaHistorial = React.createClass({
-   getInitialState: function() {
-    return {registros: [] };
-   },
+
+   
    render: function() {
       return (
          <div className="row"> 
-            {this.props.registros.map( function(ciudad){ 
+            {this.props.registros.map( function(ciudad){  
                return ( 
                   <div key={ciudad.id} className="col-lg-6">
                      <div className="portlet">
@@ -88,9 +86,8 @@ var Fila = React.createClass({
 
 var Imagen = React.createClass({
    render: function() {
-      const ruta_img="http://openweathermap.org/img/w/"+ this.props.dato +".png"
       return (
-         <td><img src={ruta_img}></img></td>  
+         <td><img src={this.props.dato}></img></td>  
       )
    }
 });

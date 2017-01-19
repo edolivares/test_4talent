@@ -3,17 +3,17 @@ class Api::V1::HistorialController < ApplicationController
       @historial = Historial.new(historial_params)
 
       if @historial.save
-         render json: {status: :created, 
-                      :data => { 
-                        :mod_date => @historial.created_at.strftime("%d-%m-%Y %H:%M:%S")}
-                     }
-         
-      else
-         render json: {status: :unprocessable_entity, 
-                        info: resource.errors,
-                        :data => {} }
-
-      end
+          render :status => 200,
+            :json => { :success => true,
+                      status: :created,
+                      :info => "created",
+                      :data => { :mod_date => @historial.created_at.strftime("%d-%m-%Y %H:%M:%S") } }
+       else
+          render :status => :unprocessable_entity,
+                 :json => { :success => false,
+                            :info => resource.errors,
+                            :data => {} }
+       end
 
    end
 
