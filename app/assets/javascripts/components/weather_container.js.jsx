@@ -16,6 +16,7 @@ var WeatherContainer = React.createClass({
          dataType: 'json',
          success: function(data) {
             this.setState({ciudades: data.ciudades});
+            console.log(this.state.ciudades);
          }.bind(this),
          error: function(data) {
             this.setState({ciudades: []});
@@ -39,6 +40,7 @@ var WeatherContainer = React.createClass({
                      data: { historial: {temperatura: this.state.temperatura, desc: this.state.desc, icon: this.state.icon_url, ciudad_id: ciudad.id}, _method:'create' },
                      success: function(data) {
                         $("#mod-date").text("Última actualización: " + data.data.mod_date);
+                        this.fetchCiudades();
                      }.bind(this),
                      error: function(data) {
                         console.log(data);
@@ -50,15 +52,15 @@ var WeatherContainer = React.createClass({
                this.setState({ temperatura: "Error de obtención de información"});
             }.bind(this)
          });
-         this.fetchCiudades();
       }.bind(this))  
+      
    },
    render: function() {
       return (
          <div>
             <Temperaturas ciudades={this.state.ciudades} update_Path={this.props.updatePath} />
-            <a href="#" onClick={ this.handleClick }>Actualizar información</a>
             <div className="row"><p id="mod-date"></p></div>
+            <a href="#" className="btn btn-success btn-rounded m-b-5" onClick={ this.handleClick }>Actualizar información</a>
          </div>
       );
    }
@@ -86,7 +88,14 @@ var Ciudad = React.createClass({
     desc: React.PropTypes.string
    },
    getInitialState: function() {
-    return { temperatura: "", icon: "", desc: "", icon_url: "" };
+    return { temperatura: this.props.temperatura, desc: this.props.desc, icon_url: this.props.icon };
+   },
+   componentWillReceiveProps: function(nextProps){
+      this.setState({
+         desc: nextProps.desc,
+         icon_url: nextProps.icon,
+         temperatura: nextProps.temperatura
+      });
    },
    componentDidMount: function() {
       if (this.props.temperatura=='null') {
@@ -96,7 +105,6 @@ var Ciudad = React.createClass({
             dataType: 'json',
             success: function(data) {
                this.setState({ temperatura: data.main.temp});
-               this.setState({ icon: data.weather[0].icon});
                this.setState({ desc: data.weather[0].description});
                this.setState({ icon_url: "http://openweathermap.org/img/w/"+ data.weather[0].icon+".png"});
                   $.ajax({
