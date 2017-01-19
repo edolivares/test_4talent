@@ -18,10 +18,9 @@ var WeatherContainer = React.createClass({
       });
    },
    render: function() {
-
       return (
          <div>
-            <Temperaturas ciudades={this.state.ciudades} />
+            <Temperaturas ciudades={this.state.ciudades} update_Path={this.props.updatePath} />
          </div>
       );
    }
@@ -29,13 +28,14 @@ var WeatherContainer = React.createClass({
 
 var Temperaturas = React.createClass({
    getInitialState: function() {
-    return {ciudades: []};
+    return {ciudades: [] };
+    console.log(this.props.update_Path)
    },
    render: function() {
-  
+      const up_path=this.props.update_Path;
       return (
          <ul>
-            {this.props.ciudades.map( function(ciudad){ return <Ciudad name={ciudad.name} temperatura={ciudad.informacion.temperatura} country_code={ciudad.cd} key={ciudad.id}/>})}    
+            {this.props.ciudades.map( function(ciudad){ return <Ciudad name={ciudad.name} temperatura={ciudad.informacion.temperatura} country_code={ciudad.cd} key={ciudad.id} city_id={ciudad.id} updatePath={up_path} />})}    
          </ul>
       );
    }
@@ -58,6 +58,20 @@ var Ciudad = React.createClass({
             success: function(data) {
                console.log(data);
                this.setState({ temperatura: data.main.temp});
+
+                  $.ajax({
+                     url: this.props.updatePath,
+                     type: 'POST',
+                     dataType: 'json',
+                     data: { historial: {temperatura: this.state.temperatura, ciudad_id: this.props.city_id}, _method:'create' },
+                     success: function(response) {
+                        console.log(response);
+                     }.bind(this),
+                     error: function(data) {
+                        console.log(data);
+                     }.bind(this)
+                  });
+
             }.bind(this),
             error: function(data) {
                this.setState({ temperatura: "Error de obtención de información"});

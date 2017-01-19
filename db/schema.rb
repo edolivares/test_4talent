@@ -12,19 +12,19 @@
 
 ActiveRecord::Schema.define(version: 20170118160023) do
 
-  create_table "ciudads", force: :cascade do |t|
+  create_table "ciudads", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.string   "country_code"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
 
-  create_table "historials", force: :cascade do |t|
+  create_table "historials", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "temperatura"
     t.integer  "ciudad_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.index ["ciudad_id"], name: "index_historials_on_ciudad_id"
+    t.index ["ciudad_id"], name: "index_historials_on_ciudad_id", using: :btree
   end
 
 end
