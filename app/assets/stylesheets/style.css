@@ -1,6 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Indie+Flower);
  body {
-  font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
 }
 h1,
 h2,
@@ -14,6 +15,9 @@ html, body{
    height: 100%;
 /* The html and body elements cannot have any padding or margin. */
 }
+
+
+
 .section {
   padding: 120px 0px;
 }
@@ -301,6 +305,23 @@ height: 100%;
 margin: 0 auto -80px;
 
 }
+
+.bg-success-alt {
+  background-color: rgba(52, 199, 59, 0.7);
+}
+
+.bg-primary-alt {
+  background-color: rgba(57, 96, 209, 0.7);
+}
+
+.m-t-0 {
+    margin-top: 0px;
+}
+
+.text-white {
+    color: #ffffff;
+}
+
 /* Social */
 
 ul.social-icons {
@@ -350,6 +371,110 @@ ul.social-icons li a i {
   color: rgba(255, 255, 255, 0.7);
   font-size: 16px;
 }
+
+
+/***************** 7.Portlets ****************/
+.portlet {
+  margin-bottom: 20px;
+  background: #fff;
+  transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  border: 1px solid #E6EBEC;
+}
+
+.portlet .portlet-heading {
+  padding: 15px;
+  line-height: 38px;
+  min-height: 39px;
+  border-radius: 3px;
+  color: #fff;
+}
+
+.portlet .portlet-heading .portlet-title {
+  float: left;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.portlet .portlet-heading .portlet-widgets {
+  position: relative;
+  text-align: right;
+  float: right;
+  padding-left: 15px;
+  display: inline-block;
+  font-size: 15px;
+  line-height: 0px;
+}
+
+.portlet .portlet-body {
+  background: #fff;
+  padding: 15px;
+  -webkit-border-bottom-right-radius: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  -moz-border-radius-bottomright: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.portlet .portlet-heading .portlet-widgets .divider {
+  margin: 0 5px;
+}
+
+.portlet .portlet-heading.bg-purple a, .portlet .portlet-heading.bg-info a, .portlet .portlet-heading.bg-success a, .portlet .portlet-heading.bg-primary a, .portlet .portlet-heading.bg-danger a, .portlet .portlet-heading.bg-warning a, .portlet .portlet-heading.bg-inverse a,.portlet .portlet-heading.bg-pink a {
+  color: #fff;
+}
+
+.portlet .portlet-heading a {
+  color: #999;
+}
+
+.portlet .portlet-heading .portlet-widgets .collapsed .ion-minus-round:before {
+    content: "\f217" !important;
+}
+
+.panel-disabled {
+  position: absolute;
+  cursor: wait;
+  border-radius: 3px;
+  left: 10px;
+  right: 10px;
+  top: 0;
+  bottom: 20px;
+  background: rgba(47, 53, 63, 0.22);
+}
+
+.loader-1 {
+  width: 30px;
+  height: 30px;
+  background-color: #2f353f;
+  -webkit-animation: sk-rotateplane 1.2s infinite ease-in-out;
+  animation: sk-rotateplane 1.2s infinite ease-in-out;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -15px;
+  margin-top: -15px;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+.text-capitalize {
+  text-transform: capitalize;
+}
+
+/* text-color */
+.text-dark {
+      color: #797979;
+}
+
+
+
 @media screen and (max-width: 1024px) {
   #macbook {
     width: 750px;

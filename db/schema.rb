@@ -21,6 +21,8 @@ ActiveRecord::Schema.define(version: 20170118160023) do
 
   create_table "historials", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "temperatura"
+    t.string   "desc"
+    t.string   "icon"
     t.integer  "ciudad_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
