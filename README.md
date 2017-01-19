@@ -1,24 +1,21 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+> **Note:**
+
+> - Está hecho con rails 5, react y mysql.
+> - Traté de dejar el proyecto lo más dinámico posible, para que no exista acoplamiento entre el código y la base de datos. 
+> - Agregué dos tablas, ciudades e historial, por lo que se pueden agregar más ciudades y seguirá manteniendo el diseño, junto a su usabilidad.
 
 Things you may want to cover:
 
-* Ruby version
+* Versión de rails: 5.0
 
-* System dependencies
+* Creación de la BD
+   Rake db:create
+   
+* Inicialización de la DB
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+   El seed contiene las ciudades solicitadas en el ejercicio, así que es necesario ejecutarlo.
+   
+   RAILS_ENV=development rake db:migrate
+   RAILS_ENV=development rake db:seed
