@@ -3,7 +3,13 @@ Rails.application.routes.draw do
 
    namespace :api, defaults: {format: :json} do
       namespace :v1 do
-         get 'ciudad/all_last_weather', :as => 'all_last_weather'
+         # get 'ciudad/all_last_weather', :as => 'all_last_weather'
+         resources :ciudad, only: :create do
+            collection do
+               get :all_cities
+               get :all_last_weather
+            end
+         end
          resources :historial, only: :create do
             collection do
                get :complete_history
@@ -13,4 +19,5 @@ Rails.application.routes.draw do
    end
 
    resources :historial, only: :index
+   resources :ciudad, only: :index
 end

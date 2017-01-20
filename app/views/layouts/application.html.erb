@@ -15,7 +15,7 @@
    <body>
       <div class="wrap"> 
       
-         <%= react_component('Header',{ homePath: root_path(), historialPath: historial_index_path() }) %>
+         <%= react_component('Header',{ homePath: root_path(), historialPath: historial_index_path(), ciudad_Path: ciudad_index_path() }) %>
          <section class="bg-light section" id="clients">
               <div class="container">
                <div class="row text-center">
@@ -28,7 +28,7 @@
 
       </div>
 
-      <%= react_component('Footer',{ homePath: root_path(), historialPath: historial_index_path() }) %>
+      <%= react_component('Footer',{ homePath: root_path(), historialPath: historial_index_path(), ciudad_Path: ciudad_index_path() }) %>
   
   </body>
 </html>

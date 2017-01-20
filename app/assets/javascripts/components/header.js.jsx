@@ -20,6 +20,7 @@ var Header = React.createClass({
                                 <ul className="nav navbar-nav navbar-right">
                                     <li><a href={this.props.homePath}>Home</a></li>
                                     <li><a href={this.props.historialPath}>Historial</a></li>
+                                    <li><a href={this.props.ciudad_Path}>Ciudades</a></li>
                                 </ul>
                             </div>
                         </div>
