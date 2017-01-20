@@ -16,7 +16,6 @@ var WeatherContainer = React.createClass({
          dataType: 'json',
          success: function(data) {
             this.setState({ciudades: data.ciudades});
-            console.log(this.state.ciudades);
          }.bind(this),
          error: function(data) {
             this.setState({ciudades: []});
