@@ -27,12 +27,11 @@ var Historial = React.createClass({
 });
 
 var TablaHistorial = React.createClass({
-
-   
    render: function() {
+      const ciudadInfo= [];
       return (
          <div className="row"> 
-            {this.props.registros.map( function(ciudad){  
+            {this.props.registros.map( function(ciudad){ 
                return ( 
                   <div key={ciudad.id} className="col-lg-6">
                      <div className="portlet">
@@ -51,18 +50,9 @@ var TablaHistorial = React.createClass({
                                           <th>Fecha</th>
                                        </tr>
                                     </thead>
-                                    <tbody>
-                                       {ciudad.historial.map( function(elemento){  
-                                          return ( 
-                                             <tr key={elemento.id}>
-                                                <Imagen dato={elemento.icon} />
-                                                <Fila dato={elemento.temperatura} />
-                                                <Fila dato={elemento.desc} />
-                                                <Fila dato={elemento.date} />
-                                             </tr>
-                                           );
-                                       })}
-                                    </tbody>
+                                    
+                                       <Refactorizador ciudad_info={ciudad} />
+                                    
                                  </table>
                               </div>
                            </div>
@@ -75,19 +65,40 @@ var TablaHistorial = React.createClass({
    }
 });
 
-
-var Fila = React.createClass({
+var Refactorizador = React.createClass({
+   getInitialState: function() {
+      return { ciudad: [], tieneHistorial: false };
+   },
+   componentDidMount: function() {
+      this.setState({ciudad: this.props.ciudad_info });
+      if (this.props.ciudad_info.hasOwnProperty('historial')){
+         this.setState({tieneHistorial: true });
+      }else{
+         this.setState({tieneHistorial: false });
+      }
+   },
    render: function() {
-      return (
-         <td>{this.props.dato}</td>  
-      )
-   }
-});
-
-var Imagen = React.createClass({
-   render: function() {
-      return (
-         <td><img src={this.props.dato}></img></td>  
-      )
+      if (this.state.tieneHistorial==true){
+         return (
+            <tbody>
+               {this.state.ciudad.historial.map( function(elemento){  
+                  return ( 
+                     <tr key={elemento.id}>
+                        <Imagen dato={elemento.icon} />
+                        <Fila dato={elemento.temperatura} />
+                        <Fila dato={elemento.desc} />
+                        <Fila dato={elemento.date} />
+                     </tr>
+                  );
+               })}
+            </tbody>
+         );
+      }else{
+         return ( 
+            <tr>
+               <td colSpan="4">No hay registros</td>
+            </tr>
+         );
+      }
    }
 });

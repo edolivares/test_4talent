@@ -11,11 +11,7 @@ json.ciudades(@ciudades) do | ciudad|
             json.icon historial.icon
             json.date historial.created_at.strftime("%d-%m-%Y %H:%M:%S")
          end
-      else
-         json.temperatura "null"
-         json.date "null"
-         json.desc "null"
-         json.icon "null"
+    
       end
    end
 end
